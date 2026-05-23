@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -24,14 +24,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 
 // Project imports:
-import 'package:safenotes/data/database_handler.dart';
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/backup_passphrase.dart';
-import 'package:safenotes/dialogs/confirm_import.dart';
-import 'package:safenotes/models/parse_import.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/utils/cache_manager.dart';
-import 'package:safenotes/utils/device_info.dart';
+import 'package:uppernotes/data/database_handler.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/dialogs/backup_passphrase.dart';
+import 'package:uppernotes/dialogs/confirm_import.dart';
+import 'package:uppernotes/models/parse_import.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/utils/cache_manager.dart';
+import 'package:uppernotes/utils/device_info.dart';
 
 class FileHandler {
   static Future<String> encryptedOutputBackupContent() async {

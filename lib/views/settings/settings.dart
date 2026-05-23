@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -25,20 +25,19 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/backup_import.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/styles.dart';
-import 'package:safenotes/utils/url_launcher.dart';
-import 'package:safenotes/views/settings/theme_setting.dart';
-import 'package:safenotes/widgets/footer.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/dialogs/backup_import.dart';
+import 'package:uppernotes/models/app_theme.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/utils/styles.dart';
+import 'package:uppernotes/utils/url_launcher.dart';
+import 'package:uppernotes/views/settings/theme_setting.dart';
+import 'package:uppernotes/widgets/footer.dart';
 
 class SettingsScreen extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
 
-  const SettingsScreen({Key? key, required this.sessionStateStream})
-      : super(key: key);
+  const SettingsScreen({super.key, required this.sessionStateStream});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -236,42 +235,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Miscellaneous'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: const Icon(Icons.rate_review_outlined),
-              title: Text('Rate Us'.tr()),
-              onPressed: (_) async {
-                String playstoreUrl = SafeNotesConfig.playStoreUrl;
-                try {
-                  await launchUrlExternal(Uri.parse(playstoreUrl));
-                } catch (_) {}
-              },
-            ),
-            SettingsTile.navigation(
-              leading: Icon(MdiIcons.frequentlyAskedQuestions),
-              title: Text('FAQs'.tr()),
-              onPressed: (_) async {
-                String faqsUrl = SafeNotesConfig.faqsUrl;
-                try {
-                  await launchUrlExternal(Uri.parse(faqsUrl));
-                } catch (_) {}
-              },
-            ),
-            SettingsTile.navigation(
               leading: Icon(MdiIcons.github),
               title: Text('Source Code'.tr()),
               onPressed: (_) async {
-                String sourceCodeUrl = SafeNotesConfig.githubUrl;
+                String sourceCodeUrl = SafeNotesConfig.sourceCodeUrl;
                 try {
                   await launchUrlExternal(Uri.parse(sourceCodeUrl));
-                } catch (_) {}
-              },
-            ),
-            SettingsTile.navigation(
-              leading: const Icon(Icons.mail_outline),
-              title: Text('Email'.tr()),
-              onPressed: (_) async {
-                String email = SafeNotesConfig.mailToForFeedback;
-                try {
-                  await launchUrlExternal(Uri.parse(email));
                 } catch (_) {}
               },
             ),

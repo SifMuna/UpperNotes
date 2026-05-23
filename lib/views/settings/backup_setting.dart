@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -27,16 +27,16 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/utils/scheduled_task.dart';
-import 'package:safenotes/utils/storage_permission.dart';
-import 'package:safenotes/utils/styles.dart';
-import 'package:safenotes/utils/time_utils.dart';
-import 'package:safenotes/widgets/login_button.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/app_theme.dart';
+import 'package:uppernotes/utils/scheduled_task.dart';
+import 'package:uppernotes/utils/storage_permission.dart';
+import 'package:uppernotes/utils/styles.dart';
+import 'package:uppernotes/utils/time_utils.dart';
+import 'package:uppernotes/widgets/login_button.dart';
 
 class BackupSetting extends StatefulWidget {
-  const BackupSetting({Key? key}) : super(key: key);
+  const BackupSetting({super.key});
 
   @override
   State<BackupSetting> createState() => BackupSettingState();
@@ -146,7 +146,7 @@ class BackupSettingState extends State<BackupSetting> {
                     _buildUpperBackupView(),
                     const SizedBox(height: 10),
                     Text(
-                        "This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new Safe Notes app.\nFor more, see FAQ."
+                        "This will create an encrypted local backup, which gets automatically updated every day. Moreover, the backup is designed such that it can be used in tandem with other open-source tools like SyncThing to keep the multiple redundant backups across different devices on the local network.\nTo switch to a new device, you would simply need to copy this backup file to the new device and import that in your new UpperNotes app.\nFor more, see FAQ."
                             .tr()),
                     const SizedBox(height: 10),
                     _buildBackupNowButton()
@@ -264,7 +264,7 @@ class BackupSettingState extends State<BackupSetting> {
     TODO: Support opening backup folder on Android native file manager
     As of now, there is no reliable way to open a particular folder in
     the file manager using the ACTION_VIEW intent.
-    See: ghttps://github.com/keshav-space/safenotes/issues/193
+    See: https://github.com/keshav-space/safenotes/issues/193
     */
     return Text(
       'Location: {locationPath}'.tr(

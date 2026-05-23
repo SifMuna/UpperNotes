@@ -1,99 +1,76 @@
-<p align="center"><a href="https://safenotes.dev/"><img src="assets/images/splash.png" width="150"></a></p> 
-<h2 align="center"><b>Safe Notes</b></h2>
-<h4 align="center">Encrypted, Private note manager.</h4>
-
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.trisven.safenotes"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-google-play-badge.png" height='65px' ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://f-droid.org/en/packages/com.trisven.safenotes/"><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/get-it-on-f-droid-badge.png" height='65px'></a></p>
+<p align="center"><img src="assets/images/icon.png" width="150"></p>
+<h2 align="center"><b>UpperNotes</b></h2>
+<h4 align="center">Encrypted, private note manager.</h4>
 
 <p align="center">
-<a href="https://github.com/keshav-space/safenotes/releases" alt="GitHub release"><img src="https://img.shields.io/github/v/release/keshav-space/safenotes?style=for-the-badge&logo=windowsterminal" ></a>
 <a href="https://www.gnu.org/licenses/gpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=for-the-badge&logo=gnu"></a>
-<br>
-<a href="https://github.com/keshav-space/safenotes/actions/" alt="Build Status"><img src="https://img.shields.io/github/actions/workflow/status/keshav-space/safenotes/flutter-ci.yml?style=for-the-badge&logo=github"></a>
-<a href="#" alt="Total downloads"><img src="https://img.shields.io/endpoint?url=https://statistics.safenotes.dev&logo=docusign&style=for-the-badge"></a>
-<a href="https://matrix.to/#/#safenotes:matrix.org" alt="MATRIX channel: #safenotes"><img src="https://img.shields.io/matrix/safenotes:matrix.org?style=for-the-badge&logo=matrix"></a>
+<a href="#" alt="Platform"><img src="https://img.shields.io/badge/platform-Android-3DDC84.svg?style=for-the-badge&logo=android"></a>
 </p>
 
+UpperNotes is a fork of [Safe Notes](https://safenotes.dev) — an offline, AES-256-encrypted note manager. Notes are stored locally on the device, encrypted with a passphrase you choose. The app makes no network requests.
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/dev/fastlane/metadata/android/en-US/images/featureGraphic.png"  width="768" style="border-radius:10px;">
-</p>
+## Why this fork?
 
-<hr>
-<p align="center"><a href="#screenshots">Screenshots</a> &bull; <a href="#description">Description</a> &bull; <a href="#features">Features</a> &bull; <a href="#installation-and-updates">Installation and updates</a> &bull; <a href="#contribution">Contribution</a>  &bull; <a href="https://safenotes.dev/privacy-policy.html">Privacy Policy</a>  &bull; <a href="#license">License</a></p>
-<p align="center"><a href="https://safenotes.dev/">Website</a> &bull; <a href="https://safenotes.dev/bug-reporting.html">Reporting a Bug</a> &bull; <a href="https://safenotes.dev/faqs.html">FAQ</a> &bull; <a href=".">Press</a></p>
-<hr>
+The upstream app is solid, but a couple of things bothered me enough to fork:
 
-## Screenshots
-<p align="center">
-<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/image1.png" width="30%" style="border-radius: 10px 0 0 0">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/assets/github/image2.gif" width="30%">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/image3.png" width="30%" style="border-radius:0 10px 0 0" >
-<br><img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/image4.png" width="30%" style="border-radius:0 0 0 10px">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/image5.png" width="30%">&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/keshav-space/safenotes/main/fastlane/metadata/android/en-US/images/phoneScreenshots/image7.png" width="30%" style="border-radius:0 0 10px 0">
-</p>
+- **Gboard shift-key crash.** On recent Gboard versions, pressing Shift inside a passphrase or no-suggestion field could kill the app. Fixed by pairing `enableSuggestions: false` and `autocorrect: false` with `enableIMEPersonalizedLearning: false` everywhere — the desync that triggered the crash can't happen anymore.
+- **Forced periodic passphrase entry.** Upstream forces you to re-enter the passphrase every 5 biometric logins, with no way to disable it. UpperNotes adds **Settings → Biometric → Passphrase challenge**, where you can either allow biometrics indefinitely (the new default) or require the passphrase every N days (you pick N).
+- **No passphrase strength gate.** Upstream rejects short or "weak" passphrases without explaining what makes them weak. UpperNotes only requires that the passphrase be non-empty — pick whatever you want.
 
+Plus light cleanup: app rebrand, new icon, the in-app footer reads "Made with 🫀 somewhere", and the settings/sidebar no longer link to upstream-specific resources (Rate Us, FAQs, Help, Email). The Source Code link points here.
 
+The encryption, storage format, and on-disk layout are unchanged from upstream, so backups exported from Safe Notes can be imported into UpperNotes and vice versa.
 
-## Description
+## Features (from upstream)
 
-Safe Notes is a privacy-focused note manager which provides an inbuild encrypted storage. It imploys rigorously tested  AES-256 encryption standard to store user notes. All the notes are stored locally on the user's device. Contrary to the ongoing frenzy of "move everything to cloud" we believe in "localization of user data" giving you the control of your data and not some third-party cloud service provider.
-We know you gotta change your device once in a while that's why Safe Notes also provides a secure migration facility, which allows you to export and import your notes without having to compromise the sanctity of your data. Word of advice, keep your passphrase long and secret. May encryption protect us all!
+- AES-256 encrypted local storage
+- Biometric authentication
+- Android background-snapshot protection (`FLAG_SECURE`)
+- Incognito keyboard (no IME learning, no suggestions)
+- Brute-force lockout
+- Inactivity auto-logout
+- Encrypted local backup with import/export
+- Light/dark theme (Arctic Nord palette)
+- Grid and list views, optional colorful notes
+- No telemetry, no network calls
 
 > [!IMPORTANT]
-> With great security comes the great responsibility of remembering the passphrase!
+> There is no passphrase recovery. Lose the passphrase, lose the notes.
 
-### Features
+> [!WARNING]
+> Some security features can't be guaranteed on rooted devices.
 
-* Encrypted AES-256 storage
-* Biometric authentication
-* Android background snapshot protection
-* Incognito Keyboard
-* Brute-force protection
-* Prevents data snooping via adb
-* Inactivity guard
-* Automated encrypted backup
-* Beautiful [Arctic Nord](https://www.nordtheme.com) style dark/light theme
-* List and grid view
-* Colorful notes
-* Seamless migration to new device 
-* Completely anonymous no inbound and outbound request
+## Installation
 
-> [!WARNING] 
-> Some security features cannot be guaranteed to work if you are using a rooted device.
+UpperNotes is not on Play Store or F-Droid. Build it yourself, or grab a release APK from [Releases](https://github.com/SifMuna/UpperNotes/releases) when one is published.
 
-<!-- Hidden span to keep old links compatible. -->
-<span id="updates"></span>
+The Android `applicationId` is `com.uppernotes.app` (upstream is `com.trisven.safenotes`), so UpperNotes installs side-by-side with Safe Notes — they don't share storage.
 
-## Installation and updates
-You can install Safe Notes using one of the following methods:
- 1. Download Safe Notes from the Google Play store using this [link.](https://play.google.com/store/apps/details?id=com.trisven.safenotes)
- 2. Download Safe Notes from the F-Droid using this [link.](https://f-droid.org/en/packages/com.trisven.safenotes/)
- 3. Download the APK from [Github Releases](https://github.com/keshav-space/safenotes/releases) and install it.
- 4. Build a debug APK yourself. This is the fastest way to get new features on your device, but is much more complicated, so we recommend using one of the other methods.
+## Building
 
-We recommend method 1 or 2 for most users. Building a debug APK using method 4 excludes a key entirely. Signing keys help ensure that a user isn't tricked into installing a malicious update to an app.
+Requires Flutter (tested against the current `stable` channel, 3.41.x), Android SDK 34+, and JDK 17.
 
+```bash
+flutter pub get
+flutter build apk --debug      # debug APK
+flutter build apk --release    # release APK (needs android/key.properties)
+```
 
-## Contribution
-Whether you have ideas, design changes, code cleaning, or real heavy code changes, help is always welcome.
-The more is done the better it gets!  
-If you'd like to get involved, check our [contribution notes](.github/CONTRIBUTING.md).  
+The Android toolchain pinned in this repo:
 
-Help translate [Safe Notes on Hosted Weblate](https://hosted.weblate.org/engage/safe-notes/)  
-<a href="https://hosted.weblate.org/engage/safe-notes/">
-<img src="https://hosted.weblate.org/widget/safe-notes/multi-auto.svg" alt="Translation status" />
-</a>
-
-## Privacy Policy
-
-The Safe Notes project aims to provide a encrypted, private, anonymous experience for local note storage. The app doesn't send any outbound requests neither does it receives any inbound requests. Hence, it doesn't collect any data whatsoever. You can find the document [here](https://safenotes.dev/privacy-policy.html).
+| Tool | Version |
+|---|---|
+| Gradle | 8.11.1 |
+| Android Gradle Plugin | 8.9.1 |
+| Kotlin | 2.1.0 |
+| `compileSdk` | 36 |
+| `minSdk` | 25 |
+| NDK | 28.2.13676358 |
 
 ## License
-[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)  
 
-Safe Notes is Free Software: You can use, study share and improve it at your
-will. Specifically 
-[GNU General Public License](https://www.gnu.org/licenses/gpl.html) as
-published by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.  
+Same as upstream: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0). See [LICENSE](LICENSE).
 
-## Supporters
-|<a href="https://weblate.org/"><img src="https://github.com/keshav-space/safenotes/assets/44315208/f5ca89e7-c96d-4fa2-8156-191229d0ae9f" width="75%"></a>|Weblate is helping with continuous localization as part of their ongoing support for libre software projects.|
-|:---:|:---:|
+## Credits
+
+All credit for the original app belongs to [Keshav Priyadarshi](https://github.com/keshav-space) and the [Safe Notes contributors](https://github.com/keshav-space/safenotes/graphs/contributors). UpperNotes is a small set of behavioral and branding patches on top of their work.

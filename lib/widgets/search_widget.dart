@@ -8,15 +8,15 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/utils/text_direction_util.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/utils/text_direction_util.dart';
 
 class SearchWidget extends StatefulWidget {
   final String text;
@@ -24,11 +24,11 @@ class SearchWidget extends StatefulWidget {
   final String hintText;
 
   const SearchWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.onChanged,
     required this.hintText,
-  }) : super(key: key);
+  });
 
   @override
   SearchWidgetState createState() => SearchWidgetState();
@@ -44,6 +44,7 @@ class SearchWidgetState extends State<SearchWidget> {
     final style = widget.text.isEmpty ? styleHint : styleActive;
     const searchBoxRadius = 7.0;
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
+    final bool enableImeAssist = enableIMEPLFlag;
 
     return Container(
       height: 42,
@@ -56,6 +57,8 @@ class SearchWidgetState extends State<SearchWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: TextField(
         enableIMEPersonalizedLearning: enableIMEPLFlag,
+        enableSuggestions: enableImeAssist,
+        autocorrect: enableImeAssist,
         textDirection: getTextDirecton(widget.text),
         controller: controller,
         enableInteractiveSelection: true,

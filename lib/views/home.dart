@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -25,28 +25,28 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:safenotes/data/database_handler.dart';
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/backup_import.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/routes/route_generator.dart';
-import 'package:safenotes/utils/notes_color.dart';
-import 'package:safenotes/utils/styles.dart';
-import 'package:safenotes/widgets/drawer.dart';
-import 'package:safenotes/widgets/note_card.dart';
-import 'package:safenotes/widgets/note_card_compact.dart';
-import 'package:safenotes/widgets/note_tile.dart';
-import 'package:safenotes/widgets/note_tile_compact.dart';
-import 'package:safenotes/widgets/search_widget.dart';
+import 'package:uppernotes/data/database_handler.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/dialogs/backup_import.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/routes/route_generator.dart';
+import 'package:uppernotes/utils/notes_color.dart';
+import 'package:uppernotes/utils/styles.dart';
+import 'package:uppernotes/widgets/drawer.dart';
+import 'package:uppernotes/widgets/note_card.dart';
+import 'package:uppernotes/widgets/note_card_compact.dart';
+import 'package:uppernotes/widgets/note_tile.dart';
+import 'package:uppernotes/widgets/note_tile_compact.dart';
+import 'package:uppernotes/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
 
   const HomePage({
-    Key? key,
+    super.key,
     required this.sessionStateStream,
-  }) : super(key: key);
+  });
 
   @override
   HomePageState createState() => HomePageState();
@@ -102,7 +102,7 @@ class HomePageState extends State<HomePage> {
         drawer: _buildDrawer(context),
         appBar: AppBar(
           title: Text(
-            'Safe Notes'.tr(),
+            SafeNotesConfig.appName,
             style: appBarTitle,
           ),
           actions: isLoading

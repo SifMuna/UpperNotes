@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,16 +23,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/data/database_handler.dart';
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/passphrase_util.dart';
-import 'package:safenotes/utils/snack_message.dart';
-import 'package:safenotes/utils/styles.dart';
+import 'package:uppernotes/data/database_handler.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/utils/snack_message.dart';
+import 'package:uppernotes/utils/styles.dart';
 
 class ChangePassphrase extends StatefulWidget {
-  const ChangePassphrase({Key? key}) : super(key: key);
+  const ChangePassphrase({super.key});
   @override
   ChangePassphraseState createState() => ChangePassphraseState();
 }
@@ -154,6 +153,8 @@ class ChangePassphraseState extends State<ChangePassphrase> {
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
+      enableSuggestions: false,
+      autocorrect: false,
       controller: _oldPassphraseController,
       autofocus: true,
       focusNode: _focusOld,
@@ -186,6 +187,8 @@ class ChangePassphraseState extends State<ChangePassphrase> {
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
+      enableSuggestions: false,
+      autocorrect: false,
       controller: _newPassphraseController,
       focusNode: _focusNew,
       enableInteractiveSelection: false,
@@ -207,16 +210,9 @@ class ChangePassphraseState extends State<ChangePassphrase> {
   }
 
   String? _firstInputValidator(String? passphrase) {
-    const int minPassphraseLength = 8;
-    const double minPassphraseStrength = 0.5;
-    final String minpCharacterMsg = 'Minimum 8 characters long!'.tr();
-    final String tooWeakMsg = 'Passphrase is too weak!'.tr();
-
-    return passphrase == null || passphrase.length < minPassphraseLength
-        ? minpCharacterMsg
-        : (estimateBruteforceStrength(passphrase) < minPassphraseStrength)
-            ? tooWeakMsg
-            : null;
+    return passphrase == null || passphrase.isEmpty
+        ? 'Passphrase cannot be empty!'.tr()
+        : null;
   }
 
   Widget _buildNewConfirmPassField() {
@@ -226,6 +222,8 @@ class ChangePassphraseState extends State<ChangePassphrase> {
 
     return TextFormField(
       enableIMEPersonalizedLearning: false,
+      enableSuggestions: false,
+      autocorrect: false,
       controller: _newConfirmPassphraseController,
       focusNode: _focusNewConfirm,
       enableInteractiveSelection: false,
@@ -324,6 +322,7 @@ class ChangePassphraseState extends State<ChangePassphrase> {
     if (form.validate()) {
       Session.setOrChangePassphrase(_newConfirmPassphraseController.text);
       var navigator = Navigator.of(context);
+      await PreferencesStorage.markPassphraseLoginNow();
 
       // Re-encrypt and update all the existing notes
       for (final note in allnotes) {

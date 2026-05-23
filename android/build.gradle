@@ -8,6 +8,28 @@ allprojects {
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+
+    // AGP 8 requires every Android module to declare a `namespace`. Older
+    // Flutter plugins (e.g. media_scanner 2.1.0) still rely on the legacy
+    // `package` attribute in AndroidManifest.xml, which AGP 8 ignores.
+    // Backfill the namespace from the manifest's `package` attribute when the
+    // plugin doesn't declare one. This must run before evaluationDependsOn(':app').
+    plugins.withId('com.android.library') {
+        def androidExt = project.android
+        if (androidExt.namespace == null) {
+            def manifestFile = file("${project.projectDir}/src/main/AndroidManifest.xml")
+            if (manifestFile.exists()) {
+                def manifestPackage = new XmlSlurper()
+                        .parse(manifestFile)
+                        .@package
+                        .text()
+                if (manifestPackage) {
+                    androidExt.namespace = manifestPackage
+                }
+            }
+        }
+    }
+
     project.evaluationDependsOn(':app')
 }
 

@@ -8,20 +8,22 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
 
 // Project imports:
-import 'package:safenotes/utils/device_info.dart';
+import 'package:uppernotes/utils/device_info.dart';
 
 // return true on successful storage permission
 Future<bool> handleStoragePermission() async {
   // if sdk is above 29 no permission needed to store file in Download folder
   if (!await isAndroidSdkVersionAbove(29) &&
-      !await _requestPermission(Permission.storage)) return false;
+      !await _requestPermission(Permission.storage)) {
+    return false;
+  }
   return true;
 }
 

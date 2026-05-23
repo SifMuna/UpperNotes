@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -22,19 +22,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
-import 'package:safenotes/data/database_handler.dart';
-import 'package:safenotes/dialogs/delete_confirmation.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/routes/route_generator.dart';
-import 'package:safenotes/utils/text_direction_util.dart';
+import 'package:uppernotes/data/database_handler.dart';
+import 'package:uppernotes/dialogs/delete_confirmation.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/routes/route_generator.dart';
+import 'package:uppernotes/utils/text_direction_util.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final int noteId;
   final StreamController<SessionState> sessionStateStream;
 
   const NoteDetailPage(
-      {Key? key, required this.noteId, required this.sessionStateStream})
-      : super(key: key);
+      {super.key, required this.noteId, required this.sessionStateStream});
 
   @override
   NoteDetailPageState createState() => NoteDetailPageState();

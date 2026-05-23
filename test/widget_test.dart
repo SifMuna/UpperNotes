@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:safenotes/widgets/login_button.dart';
+import 'package:uppernotes/widgets/login_button.dart';
 
 void main() {
   group('ButtonWidget', () {

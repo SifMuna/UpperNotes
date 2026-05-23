@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
@@ -19,9 +19,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/utils/ios_style_list_tiles.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/app_theme.dart';
+import 'package:uppernotes/utils/ios_style_list_tiles.dart';
 
 void showThemeBottomSheet(BuildContext context) {
   showModalBottomSheet(
@@ -34,8 +34,8 @@ void showThemeBottomSheet(BuildContext context) {
 
 class ThemeBottomSheet extends StatefulWidget {
   const ThemeBottomSheet({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   ThemeBottomSheetState createState() => ThemeBottomSheetState();

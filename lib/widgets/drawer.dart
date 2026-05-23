@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
@@ -21,10 +21,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/utils/url_launcher.dart';
-import 'package:safenotes/views/settings/theme_setting.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/app_theme.dart';
+import 'package:uppernotes/views/settings/theme_setting.dart';
 
 class HomeDrawer extends StatefulWidget {
   final VoidCallback onImportCallback;
@@ -34,13 +33,13 @@ class HomeDrawer extends StatefulWidget {
   final VoidCallback onBiometricsCallback;
 
   const HomeDrawer({
-    Key? key,
+    super.key,
     required this.onImportCallback,
     required this.onChangePassCallback,
     required this.onLogoutCallback,
     required this.onSettingsCallback,
     required this.onBiometricsCallback,
-  }) : super(key: key);
+  });
 
   @override
   HomeDrawerState createState() => HomeDrawerState();
@@ -64,9 +63,6 @@ class HomeDrawerState extends State<HomeDrawer> {
     final String darkModeText = 'Dark Mode'.tr();
     final String lightModeText = 'Light Mode'.tr();
     final String settings = 'Settings'.tr();
-    final String helpText = 'Help and Feedback'.tr();
-    final String faqsText = 'FAQs'.tr();
-    final String rateText = 'Rate App'.tr();
     final String logoutText = 'Logout'.tr();
     final String biometrics = 'Biometric'.tr();
 
@@ -123,43 +119,6 @@ class HomeDrawerState extends State<HomeDrawer> {
                     text: settings,
                     icon: Icons.settings_outlined,
                     onClicked: widget.onSettingsCallback,
-                  ),
-                  _divide(topPadding: dividerSpacing),
-                  _buildMenuItem(
-                    topPadding: dividerSpacing,
-                    text: rateText,
-                    icon: Icons.rate_review_outlined,
-                    onClicked: () async {
-                      Navigator.of(context).pop();
-                      String playstoreUrl = SafeNotesConfig.playStoreUrl;
-                      try {
-                        await launchUrlExternal(Uri.parse(playstoreUrl));
-                      } catch (_) {}
-                    },
-                  ),
-                  _buildMenuItem(
-                    topPadding: itemSpacing,
-                    text: faqsText,
-                    icon: MdiIcons.frequentlyAskedQuestions,
-                    onClicked: () async {
-                      Navigator.of(context).pop();
-                      String faqsUrl = SafeNotesConfig.faqsUrl;
-                      try {
-                        await launchUrlExternal(Uri.parse(faqsUrl));
-                      } catch (_) {}
-                    },
-                  ),
-                  _buildMenuItem(
-                    topPadding: itemSpacing,
-                    text: helpText,
-                    icon: Icons.help_outline,
-                    onClicked: () async {
-                      Navigator.of(context).pop();
-                      var mailUrl = SafeNotesConfig.mailToForFeedback;
-                      try {
-                        await launchUrlExternal(Uri.parse(mailUrl));
-                      } catch (_) {}
-                    },
                   ),
                   _divide(topPadding: dividerSpacing),
                   _buildMenuItem(

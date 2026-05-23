@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,17 +23,17 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/editor_state.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/widgets/note_widget.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/editor_state.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/widgets/note_widget.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final StreamController<SessionState> sessionStateStream;
   final SafeNote? note;
 
-  const AddEditNotePage({Key? key, this.note, required this.sessionStateStream})
-      : super(key: key);
+  const AddEditNotePage(
+      {super.key, this.note, required this.sessionStateStream});
 
   @override
   AddEditNotePageState createState() => AddEditNotePageState();
@@ -61,7 +61,7 @@ class AddEditNotePageState extends State<AddEditNotePage> {
 
     return PopScope(
       canPop: true,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         if (didPop && isNoteNewOrContentChanged()) {
           NoteEditorState().addOrUpdateNote();
         }

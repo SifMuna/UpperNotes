@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
@@ -40,8 +40,9 @@ class PreferencesStorage {
   static const _keyMaxBackupRetryAttempts = 'maxBackupRetryAttempts';
   static const _keyAppVersionCode = 'appVersionCode';
   static const _keyIsBiometricAuthEnabled = 'isBiometricAuthEnabled';
-  static const _keyBiometricAttemptAllTimeCount =
-      'biometricAttemptAllTimeCount';
+  static const _keyBiometricChallengeMode = 'biometricChallengeMode';
+  static const _keyPassphraseRequiredEveryDays = 'passphraseRequiredEveryDays';
+  static const _keyLastPassphraseLoginEpoch = 'lastPassphraseLoginEpoch';
   static const _keyIsCompactPreview = 'isCompactPreview';
   static const _keyIsDimTheme = 'isDimTheme';
   static const _keyDarkThemeEnum = 'isDarkThemeEnum';
@@ -189,13 +190,6 @@ class PreferencesStorage {
   static Future<void> setIsBiometricAuthEnabled(bool flag) async =>
       await _preferences?.setBool(_keyIsBiometricAuthEnabled, flag);
 
-  static int get biometricAttemptAllTimeCount =>
-      _preferences?.getInt(_keyBiometricAttemptAllTimeCount) ?? 0;
-
-  static Future<void> incrementBiometricAttemptAllTimeCount() async =>
-      await _preferences?.setInt(_keyBiometricAttemptAllTimeCount,
-          PreferencesStorage.biometricAttemptAllTimeCount + 1);
-
   static bool get isCompactPreview =>
       _preferences?.getBool(_keyIsCompactPreview) ?? false;
   static Future<void> setIsCompactPreview(bool flag) async =>
@@ -228,7 +222,27 @@ class PreferencesStorage {
   static Future<void> setIsAutoRotate(bool flag) async =>
       await _preferences?.setBool(_keyIsAutoRotate, flag);
 
-  static int get noOfLoginsBeforeNextPassphraseRememberChallenge => 5;
+  // Biometric challenge mode:
+  //   'indefinite' -> biometric only, never force passphrase challenge.
+  //   'interval'   -> require passphrase at least once every N days.
+  static String get biometricChallengeMode =>
+      _preferences?.getString(_keyBiometricChallengeMode) ?? 'indefinite';
+
+  static Future<void> setBiometricChallengeMode(String mode) async =>
+      await _preferences?.setString(_keyBiometricChallengeMode, mode);
+
+  static int get passphraseRequiredEveryDays =>
+      _preferences?.getInt(_keyPassphraseRequiredEveryDays) ?? 30;
+
+  static Future<void> setPassphraseRequiredEveryDays(int days) async =>
+      await _preferences?.setInt(_keyPassphraseRequiredEveryDays, days);
+
+  static int get lastPassphraseLoginEpoch =>
+      _preferences?.getInt(_keyLastPassphraseLoginEpoch) ?? 0;
+
+  static Future<void> markPassphraseLoginNow() async =>
+      await _preferences?.setInt(
+          _keyLastPassphraseLoginEpoch, DateTime.now().millisecondsSinceEpoch);
 
   static bool get isBackupNeeded =>
       _preferences?.getBool(_keyIsBackupNeeded) ?? true;
@@ -265,33 +279,24 @@ class ImportPassPhraseHandler {
 class SafeNotesConfig {
   static const String _appVersion = '2.3.0';
   static const int _appVersionCode = 10;
-  static const String _appName = 'Safe Notes';
+  static const String _appName = 'UpperNotes';
   static const String _appSlogan = 'Encrypted note manager!';
   static const String _appLogoPath = 'assets/images/splash_500.png';
-  static const String _appLogoAsProfilePath = 'assets/images/splash.png';
-  static const String _exportFileNamePrefix = 'safenotes_';
+  static const String _exportFileNamePrefix = 'uppernotes_';
   static const String _allowedFileExtensionsForImport = 'json';
   static const String _exportFileNameExtension = '.json';
   static const String _backupExtension = '.json';
-  static const String _backupFileNamePrefix = 'safenotes_backup';
-  static const String _githubUrl = 'https://github.com/keshav-space/safenotes';
-  static const String _faqsUrl = 'https://safenotes.dev/faqs.html';
+  static const String _backupFileNamePrefix = 'uppernotes_backup';
+  static const String _githubUrl = 'https://github.com/SifMuna/UpperNotes';
   static const String _iosBackupDirectoryIndicativePath =
-      '/On My iPhone/Safe Notes/';
+      '/On My iPhone/UpperNotes/';
   static const String _androidDownloadDirectory =
       '/storage/emulated/0/Download/';
   static const String _androidBackupDirectory =
-      '/storage/emulated/0/Download/Safe Notes/';
-  static const String _mailToForFeedback =
-      'mailto:contact@safenotes.dev?subject=Help and Feedback';
-  static const String _sourceCodeUrl =
-      'https://github.com/keshav-space/safenotes';
-  static const String _bugReportUrl =
-      'mailto:contact@safenotes.dev?subject=Bug Report';
+      '/storage/emulated/0/Download/UpperNotes/';
+  static const String _sourceCodeUrl = 'https://github.com/SifMuna/UpperNotes';
   static const String _openSourceLicense =
-      'https://github.com/keshav-space/safenotes/blob/main/LICENSE';
-  static const String _playStorUrl =
-      'https://play.google.com/store/apps/details?id=com.trisven.safenotes';
+      'https://github.com/SifMuna/UpperNotes/blob/main/LICENSE';
 
   static final Map<String, Locale> _locales = {
     "Čeština": const Locale('cs'),
@@ -331,18 +336,13 @@ class SafeNotesConfig {
   static String get appName => _appName;
   static String get appVersion => _appVersion;
   static int get appVersionCode => _appVersionCode;
-  static String get logoAsProfile => _appLogoAsProfilePath;
-  static String get bugReportUrl => _bugReportUrl;
-  static String get mailToForFeedback => _mailToForFeedback;
   static String get sourceCodeUrl => _sourceCodeUrl;
   static String get openSourceLicense => _openSourceLicense;
-  static String get playStoreUrl => _playStorUrl;
   static String get githubUrl => _githubUrl;
   static String get appSlogan => _appSlogan;
   static String get appLogoPath => _appLogoPath;
   static String get exportFileExtension => _exportFileNameExtension;
   static String get importFileExtension => _allowedFileExtensionsForImport;
-  static String get faqsUrl => _faqsUrl;
   static String get androidDownloadDirectory => _androidDownloadDirectory;
   static String get androidBackupDirectory => _androidBackupDirectory;
   static String get iosBackupDirectoryIndicativePath =>

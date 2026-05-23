@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,21 +23,21 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:safenotes/authwall.dart';
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/models/app_theme.dart';
-import 'package:safenotes/routes/route_generator.dart';
-import 'package:safenotes/utils/notes_color.dart';
+import 'package:uppernotes/authwall.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/models/app_theme.dart';
+import 'package:uppernotes/routes/route_generator.dart';
+import 'package:uppernotes/utils/notes_color.dart';
 
 class App extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
   final GlobalKey<NavigatorState> navigatorKey;
 
   const App({
-    Key? key,
+    super.key,
     required this.sessionStateStream,
     required this.navigatorKey,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

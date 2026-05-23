@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -28,24 +28,24 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/generic.dart';
-import 'package:safenotes/models/biometric_auth.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/snack_message.dart';
-import 'package:safenotes/utils/styles.dart';
-import 'package:safenotes/widgets/footer.dart';
-import 'package:safenotes/widgets/login_button.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/dialogs/generic.dart';
+import 'package:uppernotes/models/biometric_auth.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/utils/snack_message.dart';
+import 'package:uppernotes/utils/styles.dart';
+import 'package:uppernotes/widgets/footer.dart';
+import 'package:uppernotes/widgets/login_button.dart';
 
 class EncryptionPhraseLoginPage extends StatefulWidget {
   final StreamController<SessionState> sessionStream;
   final bool? isKeyboardFocused;
 
   const EncryptionPhraseLoginPage({
-    Key? key,
+    super.key,
     required this.sessionStream,
     this.isKeyboardFocused,
-  }) : super(key: key);
+  });
 
   @override
   EncryptionPhraseLoginPageState createState() =>
@@ -59,7 +59,7 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
   _BiometricState _supportState = _BiometricState.unknown;
 
   // Does the user still remember their passphrase?
-  bool forcePassphraseInput = isPassphraseRememberChallenge();
+  bool forcePassphraseInput = isPassphraseChallengeDue();
 
   //ClassicLogin:
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -240,6 +240,11 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
     return TextFormField(
       enabled: !_isLocked,
       enableIMEPersonalizedLearning: false,
+      // Disabling suggestions/autocorrect alongside personalized learning
+      // avoids a Gboard crash where pressing Shift can send a composing-region
+      // update with stale indices into a field that has no suggestion buffer.
+      enableSuggestions: false,
+      autocorrect: false,
       controller: passPhraseController,
       autofocus: _isKeyboardFocused!,
       obscureText: _isHidden,
@@ -378,17 +383,15 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
         PreferencesStorage.passPhraseHash) {
       showSnackBarMessage(context, snackMsgDecryptingNotes);
       Session.login(passphrase);
+      final navigator = Navigator.of(context);
 
-      // re-enable biometric auth
-      if (forcePassphraseInput) {
-        PreferencesStorage.incrementBiometricAttemptAllTimeCount();
-      }
+      // Successful passphrase login resets the periodic-passphrase clock.
+      await PreferencesStorage.markPassphraseLoginNow();
 
       // start listening for session inactivity on successful login
       widget.sessionStream.add(SessionState.startListening);
 
-      await Navigator.pushReplacementNamed(
-        context,
+      await navigator.pushReplacementNamed(
         '/home',
         arguments: widget.sessionStream,
       );
@@ -444,7 +447,6 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
                 .tr(),
       );
     } else {
-      PreferencesStorage.incrementBiometricAttemptAllTimeCount();
       try {
         authenticated = await auth.authenticate(
           localizedReason: 'Login using your biometric credential',
@@ -454,8 +456,7 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
       if (authenticated) await _login(await BiometricAuth.authKey);
     }
     setState(() {
-      forcePassphraseInput =
-          PreferencesStorage.biometricAttemptAllTimeCount % 5 == 0;
+      forcePassphraseInput = isPassphraseChallengeDue();
     });
     return authenticated;
   }
@@ -486,13 +487,19 @@ void _startTimer(VoidCallback callback) {
   );
 }
 
-bool isPassphraseRememberChallenge() {
-  return PreferencesStorage.biometricAttemptAllTimeCount == 0
-      ? false
-      : PreferencesStorage.biometricAttemptAllTimeCount %
-              PreferencesStorage
-                  .noOfLoginsBeforeNextPassphraseRememberChallenge ==
-          0;
+bool isPassphraseChallengeDue() {
+  if (PreferencesStorage.biometricChallengeMode != 'interval') return false;
+
+  final lastEpoch = PreferencesStorage.lastPassphraseLoginEpoch;
+  // No recorded passphrase login yet: don't force a challenge — the user
+  // either just enrolled or is on a fresh install. The first explicit
+  // passphrase entry will set the timestamp.
+  if (lastEpoch == 0) return false;
+
+  final intervalDays = PreferencesStorage.passphraseRequiredEveryDays;
+  final dueAt = DateTime.fromMillisecondsSinceEpoch(lastEpoch)
+      .add(Duration(days: intervalDays));
+  return DateTime.now().isAfter(dueAt);
 }
 
 enum _BiometricState { unknown, supported, unsupported }

@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,24 +23,24 @@ import 'package:local_session_timeout/local_session_timeout.dart';
 import 'package:page_transition/page_transition.dart';
 
 // Project imports:
-import 'package:safenotes/authwall.dart';
-import 'package:safenotes/main.dart';
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/views/add_edit_note.dart';
-import 'package:safenotes/views/authentication/login.dart';
-import 'package:safenotes/views/authentication/set_passphrase.dart';
-import 'package:safenotes/views/change_passphrase.dart';
-import 'package:safenotes/views/home.dart';
-import 'package:safenotes/views/note_view.dart';
-import 'package:safenotes/views/settings/autorotate_settings.dart';
-import 'package:safenotes/views/settings/backup_setting.dart';
-import 'package:safenotes/views/settings/biometric_setting.dart';
-import 'package:safenotes/views/settings/inactivity_setting.dart';
-import 'package:safenotes/views/settings/language_setting.dart';
-import 'package:safenotes/views/settings/notes_color_setting.dart';
-import 'package:safenotes/views/settings/secure_display_setting.dart';
-import 'package:safenotes/views/settings/settings.dart';
+import 'package:uppernotes/authwall.dart';
+import 'package:uppernotes/main.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/views/add_edit_note.dart';
+import 'package:uppernotes/views/authentication/login.dart';
+import 'package:uppernotes/views/authentication/set_passphrase.dart';
+import 'package:uppernotes/views/change_passphrase.dart';
+import 'package:uppernotes/views/home.dart';
+import 'package:uppernotes/views/note_view.dart';
+import 'package:uppernotes/views/settings/autorotate_settings.dart';
+import 'package:uppernotes/views/settings/backup_setting.dart';
+import 'package:uppernotes/views/settings/biometric_setting.dart';
+import 'package:uppernotes/views/settings/inactivity_setting.dart';
+import 'package:uppernotes/views/settings/language_setting.dart';
+import 'package:uppernotes/views/settings/notes_color_setting.dart';
+import 'package:uppernotes/views/settings/secure_display_setting.dart';
+import 'package:uppernotes/views/settings/settings.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

@@ -26,7 +26,7 @@ If applicable, add screenshots to help explain your problem.
 **Smartphone (please complete the following information):**
  - Device: [e.g. Samsung Galaxy S21]
  - OS: [e.g.  Android 11]
- - Safe Notes Version [e.g.  1.0.0]
+ - UpperNotes Version [e.g. 2.3.0]
 
 **Additional context**
 Add any other context about the problem here.

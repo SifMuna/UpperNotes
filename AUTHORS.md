@@ -1,3 +1,5 @@
+UpperNotes is a fork of safenotes. It was developed by Erich Alderfer (https://github.com/SifMuna/). Below are the contents of the original AUTHORS.md as of 2026-05-23.
+
 Contributors
 ============
 

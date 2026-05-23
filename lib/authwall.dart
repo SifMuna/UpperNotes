@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -21,19 +21,19 @@ import 'package:flutter/material.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/views/authentication/login.dart';
-import 'package:safenotes/views/authentication/set_passphrase.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/views/authentication/login.dart';
+import 'package:uppernotes/views/authentication/set_passphrase.dart';
 
 class AuthWall extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
   final bool? isKeyboardFocused;
 
   const AuthWall({
-    Key? key,
+    super.key,
     required this.sessionStateStream,
     this.isKeyboardFocused,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

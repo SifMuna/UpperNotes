@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,15 +23,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
-import 'package:safenotes/app.dart';
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/dialogs/generic.dart';
-import 'package:safenotes/dialogs/logout_alert.dart';
-import 'package:safenotes/models/editor_state.dart';
-import 'package:safenotes/models/session.dart';
-import 'package:safenotes/utils/lifecycle_handler.dart';
-import 'package:safenotes/utils/scheduled_task.dart';
-import 'package:safenotes/views/settings/backup_setting.dart';
+import 'package:uppernotes/app.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/dialogs/generic.dart';
+import 'package:uppernotes/dialogs/logout_alert.dart';
+import 'package:uppernotes/models/editor_state.dart';
+import 'package:uppernotes/models/session.dart';
+import 'package:uppernotes/utils/lifecycle_handler.dart';
+import 'package:uppernotes/utils/scheduled_task.dart';
+import 'package:uppernotes/views/settings/backup_setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,7 +65,7 @@ Future main() async {
 }
 
 class SafeNotesApp extends StatelessWidget {
-  SafeNotesApp({Key? key}) : super(key: key);
+  SafeNotesApp({super.key});
 
   final navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState? get _navigator => navigatorKey.currentState;

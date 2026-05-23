@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -22,8 +22,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
-import 'package:safenotes/utils/text_direction_util.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
+import 'package:uppernotes/utils/text_direction_util.dart';
 
 class NoteFormWidget extends StatelessWidget {
   final StreamController<SessionState> sessionStateStream;
@@ -34,13 +34,13 @@ class NoteFormWidget extends StatelessWidget {
   final ValueChanged<String> onChangedDescription;
 
   const NoteFormWidget({
-    Key? key,
+    super.key,
     this.title = '',
     this.description = '',
     required this.onChangedTitle,
     required this.onChangedDescription,
     required this.sessionStateStream,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +69,16 @@ class NoteFormWidget extends StatelessWidget {
     final String titleHint = 'Title'.tr();
     //Disable IMEPL if keyboard incognito mode is true
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
+    // When IME personalized learning is disabled, also disable suggestions
+    // and autocorrect to avoid a Gboard crash where pressing Shift can send a
+    // composing-region update with stale indices into a no-suggestion field.
+    final bool enableImeAssist = enableIMEPLFlag;
 
     return TextFormField(
       autofocus: true,
       enableIMEPersonalizedLearning: enableIMEPLFlag,
+      enableSuggestions: enableImeAssist,
+      autocorrect: enableImeAssist,
       maxLines: maxLinesToShowAtTimeTitle,
       textDirection: getTextDirecton(title!),
       initialValue: title,
@@ -100,9 +106,12 @@ class NoteFormWidget extends StatelessWidget {
     const double fontSize = 18.0;
     final String hintDescription = 'Type something...'.tr();
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
+    final bool enableImeAssist = enableIMEPLFlag;
 
     return TextFormField(
       enableIMEPersonalizedLearning: enableIMEPLFlag,
+      enableSuggestions: enableImeAssist,
+      autocorrect: enableImeAssist,
       //maxLines: maxLinesToShowAtTimeDescription,
       maxLines: null,
       initialValue: description,

@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
@@ -18,20 +18,20 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // Project imports:
-import 'package:safenotes/models/safenote.dart';
-import 'package:safenotes/utils/notes_color.dart';
-import 'package:safenotes/utils/string_utils.dart';
-import 'package:safenotes/utils/text_direction_util.dart';
+import 'package:uppernotes/models/safenote.dart';
+import 'package:uppernotes/utils/notes_color.dart';
+import 'package:uppernotes/utils/string_utils.dart';
+import 'package:uppernotes/utils/text_direction_util.dart';
 
 class NoteTileWidgetCompact extends StatelessWidget {
   final SafeNote note;
   final int index;
 
   const NoteTileWidgetCompact({
-    Key? key,
+    super.key,
     required this.note,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

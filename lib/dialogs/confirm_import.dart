@@ -8,7 +8,7 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Dart imports:
@@ -23,15 +23,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:safenotes_nord_theme/safenotes_nord_theme.dart';
 
 // Project imports:
-import 'package:safenotes/utils/styles.dart';
+import 'package:uppernotes/utils/styles.dart';
 
 class ImportConfirm extends StatefulWidget {
   final int importCount;
 
   const ImportConfirm({
-    Key? key,
+    super.key,
     required this.importCount,
-  }) : super(key: key);
+  });
 
   @override
   ImportConfirmState createState() => ImportConfirmState();
@@ -109,7 +109,7 @@ class ImportConfirmState extends State<ImportConfirm> {
         Expanded(
           child: ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(NordColors.aurora.red),
+              backgroundColor: WidgetStateProperty.all(NordColors.aurora.red),
             ),
             child: _buttonText(cancelButtonText, buttonTextFontSize),
             onPressed: () {

@@ -8,14 +8,14 @@
 * You should have received a copy of the GNU General Public License v3.0 with
 * this file. If not, please visit https://www.gnu.org/licenses/gpl-3.0.html
 *
-* See https://safenotes.dev for support or download.
+* See https://github.com/SifMuna/UpperNotes
 */
 
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:safenotes/data/preference_and_config.dart';
+import 'package:uppernotes/data/preference_and_config.dart';
 
 class NotesColor extends ChangeNotifier {
   static Color getNoteColor({required int notIndex}) {
