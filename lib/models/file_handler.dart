@@ -142,7 +142,7 @@ class FileHandler {
         if (await isAndroidSdkVersionAbove(29)) {
           result = await FilePicker.platform.pickFiles(
             type: FileType.custom,
-            allowedExtensions: [SafeNotesConfig.importFileExtension],
+            allowedExtensions: [UpperNotesConfig.importFileExtension],
             allowMultiple: false,
           );
         } else {
@@ -162,7 +162,7 @@ class FileHandler {
       } else if (Platform.isIOS) {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: [SafeNotesConfig.importFileExtension],
+          allowedExtensions: [UpperNotesConfig.importFileExtension],
           allowMultiple: false,
         );
         if (result != null) {

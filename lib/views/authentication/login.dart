@@ -164,7 +164,7 @@ class EncryptionPhraseLoginPageState extends State<EncryptionPhraseLoginPage>
           width: dimensions,
           height: dimensions,
           child: Image.asset(
-            SafeNotesConfig.appLogoPath,
+            UpperNotesConfig.appLogoPath,
           ),
         ),
       ),

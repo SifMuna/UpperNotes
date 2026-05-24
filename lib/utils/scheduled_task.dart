@@ -47,12 +47,12 @@ class ScheduledTask {
   // return true on successful backup
   static Future<bool> androidBackup() async {
     try {
-      String validChosenDirectory = SafeNotesConfig.androidBackupDirectory;
+      String validChosenDirectory = UpperNotesConfig.androidBackupDirectory;
 
       if (validChosenDirectory.isNotEmpty) {
         String jsonOutputContent =
             await FileHandler.encryptedOutputBackupContent();
-        final String fileName = SafeNotesConfig.backupFileName;
+        final String fileName = UpperNotesConfig.backupFileName;
         var jsonFile = File('$validChosenDirectory/$fileName');
         jsonFile.writeAsStringSync(jsonOutputContent, mode: FileMode.write);
         MediaScanner.loadMedia(path: jsonFile.path);
@@ -86,7 +86,7 @@ class ScheduledTask {
     if (validChosenDirectory.isNotEmpty) {
       String jsonOutputContent =
           await FileHandler.encryptedOutputBackupContent();
-      final String fileName = SafeNotesConfig.backupFileName;
+      final String fileName = UpperNotesConfig.backupFileName;
       final jsonFile = File('$validChosenDirectory/$fileName');
 
       jsonFile.writeAsStringSync(jsonOutputContent);

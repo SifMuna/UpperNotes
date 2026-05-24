@@ -68,7 +68,7 @@ class PreferencesStorage {
       _preferences?.getInt(_keyAppVersionCode) ?? 1;
 
   static Future<void> setAppVersionCodeToCurrent() async => await _preferences
-      ?.setInt(_keyAppVersionCode, SafeNotesConfig.appVersionCode);
+      ?.setInt(_keyAppVersionCode, UpperNotesConfig.appVersionCode);
 
   static int get colorfulNotesColorIndex =>
       _preferences?.getInt(_keyColorfulNotesColorIndex) ?? 0;
@@ -276,7 +276,7 @@ class ImportPassPhraseHandler {
       importPassPhraseHash = imPhraseHash;
 }
 
-class SafeNotesConfig {
+class UpperNotesConfig {
   static const String _appVersion = '2.3.0';
   static const int _appVersionCode = 10;
   static const String _appName = 'UpperNotes';

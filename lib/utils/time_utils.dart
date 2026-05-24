@@ -22,7 +22,7 @@ String humanTime({
   required String localeString,
 }) {
   // set local for all supported language
-  SafeNotesConfig.setTimeagoLocale();
+  UpperNotesConfig.setTimeagoLocale();
 
   if (localeString == 'en_US') return timeago.format(time, locale: 'en');
   if (localeString == 'fr') return timeago.format(time, locale: 'fr_short');

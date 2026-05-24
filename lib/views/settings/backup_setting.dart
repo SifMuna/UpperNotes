@@ -76,12 +76,12 @@ class BackupSettingState extends State<BackupSetting> {
     if (lastBackupTime.isEmpty) return path;
 
     if (Platform.isAndroid &&
-        await Directory(SafeNotesConfig.androidBackupDirectory).exists()) {
-      path = SafeNotesConfig.androidBackupDirectory +
-          SafeNotesConfig.backupFileName;
+        await Directory(UpperNotesConfig.androidBackupDirectory).exists()) {
+      path = UpperNotesConfig.androidBackupDirectory +
+          UpperNotesConfig.backupFileName;
     } else if (Platform.isIOS) {
-      path = SafeNotesConfig.iosBackupDirectoryIndicativePath +
-          SafeNotesConfig.backupFileName;
+      path = UpperNotesConfig.iosBackupDirectoryIndicativePath +
+          UpperNotesConfig.backupFileName;
     }
 
     return path;
@@ -323,10 +323,10 @@ Future<bool> handleBackupPermissionAndLocation() async {
   if (!await handleStoragePermission()) return false;
 
   // If the download directory doesn't exists return false
-  if (!await Directory(SafeNotesConfig.androidDownloadDirectory).exists()) {
+  if (!await Directory(UpperNotesConfig.androidDownloadDirectory).exists()) {
     return false;
   }
-  await Directory(SafeNotesConfig.androidBackupDirectory)
+  await Directory(UpperNotesConfig.androidBackupDirectory)
       .create(recursive: false);
 
   return true;

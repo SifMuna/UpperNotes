@@ -149,7 +149,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
               value: Text(
-                  SafeNotesConfig.mapLocaleName[context.locale.toString()]!),
+                  UpperNotesConfig.mapLocaleName[context.locale.toString()]!),
               onPressed: (context) async {
                 await Navigator.pushNamed(context, '/chooseLanguageSettings');
                 setState(() {});
@@ -238,7 +238,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: Icon(MdiIcons.github),
               title: Text('Source Code'.tr()),
               onPressed: (_) async {
-                String sourceCodeUrl = SafeNotesConfig.sourceCodeUrl;
+                String sourceCodeUrl = UpperNotesConfig.sourceCodeUrl;
                 try {
                   await launchUrlExternal(Uri.parse(sourceCodeUrl));
                 } catch (_) {}
@@ -248,7 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               leading: const Icon(Icons.collections_bookmark_outlined),
               title: Text('Open Source license'.tr()),
               onPressed: (_) async {
-                String license = SafeNotesConfig.openSourceLicense;
+                String license = UpperNotesConfig.openSourceLicense;
                 try {
                   await launchUrlExternal(Uri.parse(license));
                 } catch (_) {}

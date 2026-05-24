@@ -66,12 +66,12 @@ class _LanguageSettingState extends State<LanguageSetting> {
   Widget _buildLanguageList(BuildContext context) {
     var selectedIndex = 0;
 
-    if (SafeNotesConfig.mapLocaleName.containsKey(context.locale.toString())) {
+    if (UpperNotesConfig.mapLocaleName.containsKey(context.locale.toString())) {
       selectedIndex = indexofLanguage(
-          SafeNotesConfig.mapLocaleName[context.locale.toString()]!);
+          UpperNotesConfig.mapLocaleName[context.locale.toString()]!);
     }
 
-    var items = SafeNotesConfig.languageItems;
+    var items = UpperNotesConfig.languageItems;
 
     return CupertinoPageScaffold(
       child: SingleChildScrollView(
@@ -92,7 +92,7 @@ class _LanguageSettingState extends State<LanguageSetting> {
                 onTap: () => setState(() {
                   selectedIndex = index;
                   context.setLocale(
-                      SafeNotesConfig.allLocale[items[index].prefix]!);
+                      UpperNotesConfig.allLocale[items[index].prefix]!);
                   setState(() {});
                 }),
                 child: AbsorbPointer(
@@ -141,8 +141,8 @@ class _LanguageSettingState extends State<LanguageSetting> {
 }
 
 int indexofLanguage(String language) {
-  for (var i = 0; i < SafeNotesConfig.languageItems.length; i++) {
-    if (SafeNotesConfig.languageItems[i].prefix == language) return i;
+  for (var i = 0; i < UpperNotesConfig.languageItems.length; i++) {
+    if (UpperNotesConfig.languageItems[i].prefix == language) return i;
   }
   return 0;
 }

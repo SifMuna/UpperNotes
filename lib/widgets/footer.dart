@@ -29,8 +29,8 @@ Widget footer({bool showVersion = false}) {
   final footerSecondText = 'Made with 🫀 somewhere'.tr().split('🫀');
   final madeWith = footerSecondText[0];
   final somewhere = footerSecondText[1];
-  final appName = SafeNotesConfig.appName;
-  final versionText = SafeNotesConfig.appVersion;
+  final appName = UpperNotesConfig.appName;
+  final versionText = UpperNotesConfig.appVersion;
   final headerText = (showVersion) ? "$appName  v$versionText" : appName;
 
   return Padding(

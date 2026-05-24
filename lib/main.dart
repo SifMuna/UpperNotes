@@ -57,15 +57,15 @@ Future main() async {
   runApp(
     EasyLocalization(
       path: 'assets/translations',
-      supportedLocales: SafeNotesConfig.localesValues,
+      supportedLocales: UpperNotesConfig.localesValues,
       fallbackLocale: const Locale('en', 'US'),
-      child: SafeNotesApp(),
+      child: UpperNotesApp(),
     ),
   );
 }
 
-class SafeNotesApp extends StatelessWidget {
-  SafeNotesApp({super.key});
+class UpperNotesApp extends StatelessWidget {
+  UpperNotesApp({super.key});
 
   final navigatorKey = GlobalKey<NavigatorState>();
   NavigatorState? get _navigator => navigatorKey.currentState;
@@ -181,7 +181,7 @@ class SafeNotesApp extends StatelessWidget {
 
 // run once every update
 void onAppUpdate() async {
-  if (PreferencesStorage.appVersionCode != SafeNotesConfig.appVersionCode) {
+  if (PreferencesStorage.appVersionCode != UpperNotesConfig.appVersionCode) {
     if (PreferencesStorage.isBackupOn) {
       if (await handleBackupPermissionAndLocation()) {
         await ScheduledTask.backup();

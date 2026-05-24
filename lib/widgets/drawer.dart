@@ -182,9 +182,9 @@ class HomeDrawerState extends State<HomeDrawer> {
         ? MediaQuery.of(context).size.width
         : MediaQuery.of(context).size.height;
 
-    final logoPath = SafeNotesConfig.appLogoPath;
-    final officialAppName = SafeNotesConfig.appName;
-    final appSlogan = SafeNotesConfig.appSlogan;
+    final logoPath = UpperNotesConfig.appLogoPath;
+    final officialAppName = UpperNotesConfig.appName;
+    final appSlogan = UpperNotesConfig.appSlogan;
     final double logoHightWidth = width * 0.25;
     // final double logoHightWidth = 75.0;
     const double appNameFontSize = 20;

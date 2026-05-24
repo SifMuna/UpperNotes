@@ -117,7 +117,7 @@ class SetEncryptionPhrasePageState extends State<SetEncryptionPhrasePage> {
         child: SizedBox(
           width: dimensions,
           height: dimensions,
-          child: Image.asset(SafeNotesConfig.appLogoPath),
+          child: Image.asset(UpperNotesConfig.appLogoPath),
         ),
       ),
     );

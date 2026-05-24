@@ -53,7 +53,7 @@ class RouteGenerator {
     switch (routeName) {
       case '/':
         return PageTransition(
-          child: SafeNotesApp(),
+          child: UpperNotesApp(),
           duration: const Duration(milliseconds: transitionDuration),
           type: transitionType,
         );
@@ -123,7 +123,7 @@ class RouteGenerator {
             type: transitionType,
           );
         }
-        return _errorRoute(route: routeName, argsType: 'SafeNotes');
+        return _errorRoute(route: routeName, argsType: 'UpperNotes');
 
       case '/addnote':
         if (args is StreamController<SessionState>) {
@@ -147,7 +147,7 @@ class RouteGenerator {
             type: transitionType,
           );
         }
-        return _errorRoute(route: routeName, argsType: 'SafeNotes');
+        return _errorRoute(route: routeName, argsType: 'UpperNotes');
 
       case '/backup':
         return PageTransition(

@@ -102,7 +102,7 @@ class HomePageState extends State<HomePage> {
         drawer: _buildDrawer(context),
         appBar: AppBar(
           title: Text(
-            SafeNotesConfig.appName,
+            UpperNotesConfig.appName,
             style: appBarTitle,
           ),
           actions: isLoading
