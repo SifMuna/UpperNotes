@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:easy_localization/easy_localization.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -83,14 +82,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(MdiIcons.fileDownloadOutline),
+              leading: const Icon(Icons.file_download_outlined),
               title: Text('Import Backup'.tr()),
               onPressed: (context) async {
                 await showImportDialog(context);
               },
             ),
             SettingsTile.switchTile(
-              leading: Icon(MdiIcons.arrowCollapseVertical),
+              leading: const Icon(Icons.unfold_less),
               title: Text('Compact Notes'.tr()),
               initialValue: PreferencesStorage.isCompactPreview,
               onToggle: (bool value) {
@@ -161,7 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Security'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(MdiIcons.fingerprint),
+              leading: const Icon(Icons.fingerprint),
               title: Text('Biometric'.tr()),
               value: PreferencesStorage.isBiometricAuthEnabled
                   ? Text('On'.tr())
@@ -172,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.navigation(
-              leading: Icon(MdiIcons.cellphoneKey),
+              leading: const Icon(Icons.timer_outlined),
               title: Text('Logout on Inactivity'.tr()),
               value: Text(inactivityTimeoutValue()),
               onPressed: (context) async {
@@ -192,7 +191,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile.switchTile(
-              leading: Icon(MdiIcons.incognito),
+              leading: const Icon(Icons.keyboard_hide),
               title: Text('Incognito Keyboard'.tr()),
               initialValue: PreferencesStorage.keyboardIncognito,
               onToggle: (bool value) {
@@ -235,7 +234,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: Text('Miscellaneous'.tr()),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(MdiIcons.github),
+              leading: const Icon(Icons.code),
               title: Text('Source Code'.tr()),
               onPressed: (_) async {
                 String sourceCodeUrl = UpperNotesConfig.sourceCodeUrl;

@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:local_session_timeout/local_session_timeout.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
@@ -157,8 +156,8 @@ class HomePageState extends State<HomePage> {
   Widget _shortNotes() {
     return IconButton(
       icon: !isNewFirst
-          ? Icon(MdiIcons.sortCalendarAscending)
-          : Icon(MdiIcons.sortCalendarDescending),
+          ? const Icon(Icons.arrow_upward)
+          : const Icon(Icons.arrow_downward),
       onPressed: () {
         setState(() {
           isNewFirst = !isNewFirst;
