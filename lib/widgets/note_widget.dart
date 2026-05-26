@@ -70,15 +70,18 @@ class NoteFormWidget extends StatelessWidget {
     //Disable IMEPL if keyboard incognito mode is true
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
     // When IME personalized learning is disabled, also disable suggestions
-    // and autocorrect to avoid a Gboard crash where pressing Shift can send a
-    // composing-region update with stale indices into a no-suggestion field.
-    final bool enableImeAssist = enableIMEPLFlag;
+    // to avoid a Gboard crash where pressing Shift can send a composing-region
+    // update with stale indices into a no-suggestion field.
+    // Autocorrect is always disabled: it keeps the last word in a composing
+    // span, and tapping inside that span on Android selects it instead of
+    // just moving the cursor.
+    final bool enableSuggestionsFlag = enableIMEPLFlag;
 
     return TextFormField(
       autofocus: true,
       enableIMEPersonalizedLearning: enableIMEPLFlag,
-      enableSuggestions: enableImeAssist,
-      autocorrect: enableImeAssist,
+      enableSuggestions: enableSuggestionsFlag,
+      autocorrect: false,
       maxLines: maxLinesToShowAtTimeTitle,
       textDirection: getTextDirecton(title!),
       initialValue: title,
@@ -95,7 +98,10 @@ class NoteFormWidget extends StatelessWidget {
         border: InputBorder.none,
         hintText: titleHint,
       ),
-      onChanged: onChangedTitle,
+      onChanged: (value) {
+        sessionStateStream.add(SessionState.startListening);
+        onChangedTitle(value);
+      },
     );
   }
 
@@ -106,12 +112,12 @@ class NoteFormWidget extends StatelessWidget {
     const double fontSize = 18.0;
     final String hintDescription = 'Type something...'.tr();
     final bool enableIMEPLFlag = !PreferencesStorage.keyboardIncognito;
-    final bool enableImeAssist = enableIMEPLFlag;
+    final bool enableSuggestionsFlag = enableIMEPLFlag;
 
     return TextFormField(
       enableIMEPersonalizedLearning: enableIMEPLFlag,
-      enableSuggestions: enableImeAssist,
-      autocorrect: enableImeAssist,
+      enableSuggestions: enableSuggestionsFlag,
+      autocorrect: false,
       //maxLines: maxLinesToShowAtTimeDescription,
       maxLines: null,
       initialValue: description,
@@ -127,7 +133,10 @@ class NoteFormWidget extends StatelessWidget {
         hintText: hintDescription,
         //hintStyle: TextStyle(color: Colors.white60),
       ),
-      onChanged: onChangedDescription,
+      onChanged: (value) {
+        sessionStateStream.add(SessionState.startListening);
+        onChangedDescription(value);
+      },
     );
   }
 

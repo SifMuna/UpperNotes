@@ -86,6 +86,7 @@ class UpperNotesApp extends StatelessWidget {
 
     return SessionTimeoutManager(
       sessionConfig: sessionConfig,
+      sessionStateStream: sessionStateStream.stream,
       child: App(
         sessionStateStream: sessionStateStream,
         navigatorKey: navigatorKey,
